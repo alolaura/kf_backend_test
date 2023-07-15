@@ -53,12 +53,16 @@ const filterOutagesAfterDate = (date: string, outages: Outage[]) => {
 };
 
 const filterOutagesBySiteDeviceId = (site: SiteInfo, outages: Outage[]) => {
-  return site.devices.map((device) => {
+  return site.devices.flatMap((device) => {
+    let outage = outages.find((outage) => outage.id === device.id);
+
+    if (!outage) return [];
+
     return {
       id: device.id,
       name: device.name,
-      begin: outages.find((outage) => outage.id === device.id)?.begin,
-      end: outages.find((outage) => outage.id === device.id)?.end
+      begin: outage.begin,
+      end: outage.end
     };
   });
 };
