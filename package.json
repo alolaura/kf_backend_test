@@ -16,5 +16,6 @@
   },
   "devDependencies": {
     "ts-node": "^10.9.1"
-  }
+  },
+  "repository": "git@github.com:alolaura/kf_backend_test.git"
 }
