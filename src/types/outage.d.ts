@@ -3,3 +3,7 @@ export interface Outage {
   begin: string;
   end: string;
 }
+
+export interface EnhancedOutage extends Outage {
+  name: string;
+}

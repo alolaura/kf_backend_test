@@ -1,25 +1,19 @@
 import express from 'express';
 import axios from 'axios';
-import { Outage } from './types/outage';
+import { Outage, EnhancedOutage } from './types/outage';
 import { SiteInfo } from './types/siteInfo';
 require('dotenv').config();
+
+axios.defaults.baseURL = process.env.KF_BASE_URL;
+axios.defaults.headers.common['x-api-key'] = process.env.KF_API_KEY;
 
 const outageBeginDate = `2022-01-01T00:00:00.000Z`;
 const siteId = 'norwich-pear-tree';
 
-const app = express();
-const port = 3000;
-
-const kfConfig = {
-  headers: {
-    'x-api-key': process.env.KF_API_KEY
-  }
-};
-
 //add to docs
 const logError = (error: any) => {
   if (error.response) {
-    console.log(error.response.data);
+    console.log(error.response.data.message);
     console.log(error.response.status);
     console.log(error.response.headers);
   } else if (error.request) {
@@ -32,7 +26,7 @@ const logError = (error: any) => {
 
 const fetchOutages = async () => {
   try {
-    const res = await axios.get<Outage[]>(`${process.env.KF_BASE_URL}/outages`, kfConfig);
+    const res = await axios.get<Outage[]>(`/outages`);
     return res.data;
   } catch (error) {
     logError(error);
@@ -41,49 +35,50 @@ const fetchOutages = async () => {
 
 const fetchSiteInfo = async (siteId: string) => {
   try {
-    const res = await axios.get<SiteInfo>(`${process.env.KF_BASE_URL}/site-info/${siteId}`, kfConfig);
+    const res = await axios.get<SiteInfo>(`/site-info/${siteId}`);
     return res.data;
   } catch (error) {
     logError(error);
   }
 };
 
-const filterOutagesAfterDate = (date: string, outages: Outage[]) => {
-  return outages.filter((outage) => outage.begin > outageBeginDate);
-};
+const filterOutagesAfterDate = (date: string, outages: Outage[]) =>
+  outages.filter((outage) => outage.begin >= outageBeginDate);
 
 const filterOutagesBySiteDeviceId = (site: SiteInfo, outages: Outage[]) => {
-  return site.devices.flatMap((device) => {
-    let outage = outages.find((outage) => outage.id === device.id);
+  return site.devices.reduce<EnhancedOutage[]>((acc, device) => {
+    let filteredOutages = outages.filter((outage) => outage.id === device.id);
 
-    if (!outage) return [];
+    if (!filteredOutages.length) return acc;
 
-    return {
-      id: device.id,
-      name: device.name,
-      begin: outage.begin,
-      end: outage.end
-    };
-  });
+    filteredOutages.forEach((outage) => {
+      acc.push({
+        id: device.id,
+        name: device.name,
+        begin: outage.begin,
+        end: outage.end
+      });
+    });
+
+    return acc;
+  }, []);
 };
 
 const postSiteOutage = async (siteId: string) => {
   const outages = await fetchOutages();
   const siteInfo = await fetchSiteInfo(siteId);
 
-  if (!outages || !siteInfo) return;
+  if (!outages?.length || !siteInfo) return;
 
-  const filteredOutages = filterOutagesAfterDate(outageBeginDate, outages);
-  const filteredOutagesBySite = filterOutagesBySiteDeviceId(siteInfo, filteredOutages);
-  console.log(filteredOutagesBySite);
+  const filteredOutagesAfterDate = filterOutagesAfterDate(outageBeginDate, outages);
+  const filteredOutagesBySite = filterOutagesBySiteDeviceId(siteInfo, filteredOutagesAfterDate);
+
+  try {
+    const res = await axios.post<EnhancedOutage[]>(`/site-outages/${siteId}`, filteredOutagesBySite);
+    return res;
+  } catch (error) {
+    logError(error);
+  }
 };
 
-postSiteOutage(siteId).then();
-
-app.get('/', (req, res) => {
-  res.send('hello worlds');
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+postSiteOutage(siteId).then((data) => console.log(data?.status));
