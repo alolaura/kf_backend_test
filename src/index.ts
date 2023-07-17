@@ -1,7 +1,6 @@
+import 'dotenv/config';
 import axios from 'axios';
-import { EnhancedOutage, Outage } from './types/Outage';
-import { SiteInfo } from './types/SiteInfo';
-require('dotenv').config();
+import { EnhancedOutage, Outage, SiteInfo } from './types';
 
 axios.defaults.baseURL = process.env.KF_BASE_URL;
 axios.defaults.headers.common['x-api-key'] = process.env.KF_API_KEY;
@@ -80,4 +79,7 @@ const postSiteOutage = async (siteId: string) => {
   }
 };
 
-postSiteOutage(siteId).then((data) => console.log(data?.status));
+(async () => {
+  const res = await postSiteOutage(siteId);
+  console.log(res?.status);
+})();
