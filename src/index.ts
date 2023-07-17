@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Outage, EnhancedOutage } from './types/outage';
-import { SiteInfo } from './types/siteInfo';
+import { EnhancedOutage, Outage } from './types/Outage';
+import { SiteInfo } from './types/SiteInfo';
 require('dotenv').config();
 
 axios.defaults.baseURL = process.env.KF_BASE_URL;
