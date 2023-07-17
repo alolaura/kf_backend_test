@@ -1,4 +1,3 @@
-import express from 'express';
 import axios from 'axios';
 import { Outage, EnhancedOutage } from './types/outage';
 import { SiteInfo } from './types/siteInfo';
