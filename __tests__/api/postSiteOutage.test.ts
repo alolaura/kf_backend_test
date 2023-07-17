@@ -21,7 +21,7 @@ const fetchSiteInfoSpy = jest.spyOn(fetchSiteInfo, 'fetchSiteInfo');
 const filterOutagesBySiteDeviceIdSpy = jest.spyOn(filterOutagesBySiteDeviceId, 'filterOutagesBySiteDeviceId');
 const filterOutagesAfterDateSpy = jest.spyOn(filterOutagesAfterDate, 'filterOutagesAfterDate');
 
-describe('fetchOutages', () => {
+describe('postSiteOutage', () => {
   it('should return 200', async () => {
     (client.post as unknown as jest.Mock).mockReturnValue({
       status: 200
