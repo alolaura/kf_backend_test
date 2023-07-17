@@ -14,7 +14,7 @@ jest.mock('axios', () => {
 const logSpy = jest.spyOn(global.console, 'log').mockImplementation(() => {});
 
 describe('fetchOutages', () => {
-  it.only('should return an array of outages', async () => {
+  it('should return an array of outages', async () => {
     (client.get as unknown as jest.Mock).mockReturnValue({
       data: outages
     });
@@ -23,7 +23,7 @@ describe('fetchOutages', () => {
     expect(client.get).toHaveBeenCalledWith(`/outages`);
   });
 
-  it.only('should log an error', async () => {
+  it('should log an error', async () => {
     (client.get as unknown as jest.Mock).mockRejectedValue({
       message: 'You do not have the required permissions to make this request.'
     });

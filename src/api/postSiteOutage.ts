@@ -11,7 +11,7 @@ export const postSiteOutage = async (siteId: string) => {
   const outages = await fetchOutages();
   const siteInfo = await fetchSiteInfo(siteId);
 
-  if (!outages?.length || !siteInfo) return;
+  if (!outages?.length || !siteInfo) throw new Error('No outages or empty site information');
 
   const filteredOutagesAfterDate = filterOutagesAfterDate(OUTAGE_BEGIN_DATE, outages);
   const filteredOutagesBySite = filterOutagesBySiteDeviceId(siteInfo, filteredOutagesAfterDate);

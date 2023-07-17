@@ -13,9 +13,9 @@ jest.mock('axios', () => {
 
 const logSpy = jest.spyOn(global.console, 'log').mockImplementation(() => {});
 
-describe('fetchOutages', () => {
+describe('fetchSiteInfo', () => {
   it('should return information about a specific site', async () => {
-    (client.get as unknown as jest.Mock).mockReturnValue({
+    (client.get as unknown as jest.Mock).mockReturnValueOnce({
       data: siteInfo
     });
 
