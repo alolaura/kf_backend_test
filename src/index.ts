@@ -1,14 +1,11 @@
 import 'dotenv/config';
 import axios from 'axios';
 import { EnhancedOutage, Outage, SiteInfo } from './types';
+import { outageBeginDate, siteId } from './constants';
 
 axios.defaults.baseURL = process.env.KF_BASE_URL;
 axios.defaults.headers.common['x-api-key'] = process.env.KF_API_KEY;
 
-const outageBeginDate = `2022-01-01T00:00:00.000Z`;
-const siteId = 'norwich-pear-tree';
-
-//add to docs
 const logError = (error: any) => {
   if (error.response) {
     console.log(error.response.data.message);
