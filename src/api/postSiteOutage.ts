@@ -5,7 +5,7 @@ import { filterOutagesBySiteDeviceId } from '../utils/filterOutagesBySiteDeviceI
 import { logError } from '../utils/logError';
 import { fetchOutages } from './fetchOutages';
 import { fetchSiteInfo } from './fetchSiteInfo';
-import client from './clientConfig';
+import { client } from './clientConfig';
 
 export const postSiteOutage = async (siteId: string) => {
   const outages = await fetchOutages();

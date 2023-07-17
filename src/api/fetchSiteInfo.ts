@@ -1,6 +1,6 @@
 import { SiteInfo } from '../types';
 import { logError } from '../utils/logError';
-import client from './clientConfig';
+import { client } from './clientConfig';
 
 export const fetchSiteInfo = async (siteId: string) => {
   try {

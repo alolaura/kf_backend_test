@@ -1,6 +1,6 @@
 import { logError } from '../utils/logError';
 import { Outage } from '../types';
-import client from './clientConfig';
+import { client } from './clientConfig';
 
 export const fetchOutages = async () => {
   try {
