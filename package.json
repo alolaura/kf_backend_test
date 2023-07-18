@@ -11,7 +11,8 @@
     "dev": "ts-node ./src/index.ts",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
-    "prettier:fix": "prettier 'src/**/*.ts' --write"
+    "prettier:fix": "prettier 'src/**/*.ts' --write",
+    "test": "jest"
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
