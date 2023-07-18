@@ -1,4 +1,4 @@
-import { EnhancedOutage, Outage, SiteInfo } from '../../src/types';
+import { EnhancedOutage, Outage, SiteInfo } from '../src/types';
 
 export const outages: Outage[] = [
   {

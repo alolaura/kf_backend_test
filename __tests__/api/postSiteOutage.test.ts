@@ -1,5 +1,5 @@
 import { client } from '../../src/api/clientConfig';
-import { filteredOutagesAfterDate, outages, siteInfo, siteOutages } from './mocks';
+import { filteredOutagesAfterDate, outages, siteInfo, siteOutages } from '../mocks';
 import * as fetchSiteInfo from '../../src/api/fetchSiteInfo';
 import { OUTAGE_BEGIN_DATE, SITE_ID } from '../../src/constants';
 import { postSiteOutage } from '../../src/api/postSiteOutage';

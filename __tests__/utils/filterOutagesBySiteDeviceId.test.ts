@@ -1,5 +1,5 @@
 import { filterOutagesBySiteDeviceId } from '../../src/utils/filterOutagesBySiteDeviceId';
-import { siteInfo, filteredOutagesAfterDate, siteOutages } from '../api/mocks';
+import { siteInfo, filteredOutagesAfterDate, siteOutages } from '../mocks';
 
 describe('filterOutagesBySiteDeviceId', () => {
   it('should return filtered outages', () => {

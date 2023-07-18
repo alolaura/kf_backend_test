@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { client } from '../../src/api/clientConfig';
 import { fetchOutages } from '../../src/api/fetchOutages';
-import { outages } from './mocks';
+import { outages } from '../mocks';
 
 jest.mock('axios', () => {
   return {

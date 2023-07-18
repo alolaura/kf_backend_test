@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Laura Mihai",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/index.js",

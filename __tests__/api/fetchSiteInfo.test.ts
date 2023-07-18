@@ -1,5 +1,5 @@
 import { client } from '../../src/api/clientConfig';
-import { siteInfo } from './mocks';
+import { siteInfo } from '../mocks';
 import { fetchSiteInfo } from '../../src/api/fetchSiteInfo';
 import { SITE_ID } from '../../src/constants';
 
