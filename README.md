@@ -2,12 +2,7 @@
 
 ## Installation
 
-To get started, clone the repository and navigate to its directory:
-
-```bash
-git clone https://github.com/your-username/my-project.git
-cd my-project
-```
+To get started, clone the repository and navigate to its directory.
 
 Make sure you have Yarn installed. If not, you can install it by following the instructions at [Yarn Installation Guide](https://yarnpkg.com/getting-started/install).
 
