@@ -92,5 +92,7 @@ describe('postSiteOutage', () => {
     expect(filterOutagesAfterDateSpy).toHaveBeenCalledWith(OUTAGE_BEGIN_DATE, outages);
     expect(filterOutagesBySiteDeviceIdSpy).toHaveBeenCalledWith(siteInfo, filteredOutagesAfterDate);
     expect(client.post).toHaveBeenCalledWith(`/site-outages/${SITE_ID}`, siteOutages);
+    expect(logSpy).toHaveBeenCalledWith('Error', 'You do not have the required permissions to make this request.');
+    expect(logSpy).toHaveBeenCalledTimes(2);
   });
 });
